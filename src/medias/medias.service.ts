@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { MediasRepository } from './medias.repository';
 import { ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
-import { PublicationsRepository } from 'src/publications/publications.repository';
+import { PublicationsRepository } from '../publications/publications.repository';
 
 @Injectable()
 export class MediasService {
@@ -11,7 +11,7 @@ export class MediasService {
 
   async create(createMediaDto: CreateMediaDto) {
     const sameCombination = await this.repository.findMediaByTitleAndUsername(createMediaDto.title, createMediaDto.username);
-    if (sameCombination) throw new ConflictException("Title is already being used by this user!");
+    if (sameCombination) throw new ConflictException("This title is already being used by this user!");
 
     return await this.repository.create(createMediaDto);
   }
