@@ -22,7 +22,7 @@ model posts {
   title String 
   text String
   image String?
-  publications publications?
+  publications publications[]
 }
 
 model publications {
@@ -30,6 +30,6 @@ model publications {
   medias medias @relation(fields: [mediaId], references: [id])
   mediaId Int 
   posts posts @relation(fields: [postId], references: [id])
-  postId Int @unique
+  postId Int
   date DateTime
 }

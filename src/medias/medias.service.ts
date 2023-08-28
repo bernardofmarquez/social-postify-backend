@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { MediasRepository } from './medias.repository';
-import { ConflictException, NotFoundException } from '@nestjs/common/exceptions';
+import { ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common/exceptions';
+import { PublicationsRepository } from 'src/publications/publications.repository';
 
 @Injectable()
 export class MediasService {
 
-  constructor(private readonly repository: MediasRepository) {}
+  constructor(private readonly repository: MediasRepository, private readonly publications: PublicationsRepository) {}
 
   async create(createMediaDto: CreateMediaDto) {
     const sameCombination = await this.repository.findMediaByTitleAndUsername(createMediaDto.title, createMediaDto.username);
@@ -39,6 +40,9 @@ export class MediasService {
   async remove(id: number) {
     const isMedia = await this.repository.findOne(id);
     if (!isMedia) throw new NotFoundException("There is no matching record with this id");
+
+    const publication = await this.publications.findOneByMediaId(id);
+    if (publication) throw new ForbiddenException("This media is already associated with a publication, it can't be deleted!");
 
     return await this.repository.remove(id);
   }
