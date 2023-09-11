@@ -1,39 +1,303 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+# Social Postify Backend
+“Social Postify” is a web application that allows users to create and schedule posts for various social networks, such as Facebook, Instagram, Twitter and LinkedIn. The system supports scheduling of multiple posts and provides a clear overview of scheduled posts.
+
+## About
+This backend project is aimed at providing users with enhanced management capabilities for their posts across various social media platforms. Our RESTful API empowers users to efficiently oversee and optimize their social media content.
+
+## Endpoints
+<details>
+  <summary>Health Check</summary>
+  <ul>
+  <li>Health response</li>
+  <details>
+    <summary>(GET "/health")</summary>
+  
+  ```javascript
+// response
+  "I'm okay!"
+  ```
+  </details>
+</ul>
+</details>
+<br/>
+
+<details>
+  <summary>Medias endpoints</summary>
+<br/>
+  <ul>
+    <li>Create Media</li>
+<details>
+  <summary>
+  (POST "medias")
+  </summary>
+  <ul>
+    <li>
+      Creates new media
+    </li>
+    <li>
+      Should not have registration with the same combination of title and username
+    </li>
+  </ul>
+    
+  ```javascript
+  // body
+{
+	"title": "Instagram",
+	"username": "myusername",
+}
+  ```
+</details>
+<br/>
+<li>Get all medias</li>
+<details>
+  <summary>
+  (GET "medias")
+  </summary>
+  <ul>
+    <li>
+      Response with all medias registred
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+ [
+	{
+		"id": 1,
+		"title": "Instagram",
+		"username": "myusername", //
+	},
+	{
+		"id": 2,
+		"title": "Twitter",
+		"username": "myusername",
+	}
+]
+  ```
+</details>
+<br/>
+<li>Get specific media</li>
+<details>
+  <summary>
+  (GET "medias/:id")
+  </summary>
+  <ul>
+    <li>
+      Response with one media that has the specificated id.
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+ 
+[
+	{
+		"id": 1,
+		"title": "Instagram",
+		"username": "myusername",
+	}
+]
+
+  ```
+</details>
+</ul>
+</details>
+<br/>
+
+<details>
+  <summary>Posts endpoints</summary>
+<br/>
+  <ul>
+    <li>Create post</li>
+<details>
+  <summary>
+  (POST "posts")
+  </summary>
+  <ul>
+    <li>
+      Creates new post
+    </li>
+  </ul>
+    
+  ```javascript
+  // body
+{
+  "title": "Why you should have a guinea pig?",
+  "text": "https://www.guineapigs.com/why-you-should-guinea",
+}
+  ```
+</details>
+<br/>
+<li>Get all posts</li>
+<details>
+  <summary>
+  (GET "posts")
+  </summary>
+  <ul>
+    <li>
+      Response with all posts registred
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+[
+	{
+		"id": 1
+		"title": "Why you should have a guinea pig?",
+		"text": "https://www.guineapigs.com/why-you-should-guinea",
+	},
+	{
+		"id": 2,
+		"title": "Man dies after coding for 400 hours no stop",
+		"text": "https://www.devnews.com/dies-after-400",
+		"image": "https://www.devnews.com/dead-dev.jpg"
+	}
+]
+  ```
+</details>
+<br/>
+<li>Get specific post</li>
+<details>
+  <summary>
+  (GET "posts/:id")
+  </summary>
+  <ul>
+    <li>
+      Response with one post that has the specificated id.
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+ 
+[
+	{
+		"id": 1
+		"title": "Why you should have a guinea pig?",
+		"text": "https://www.guineapigs.com/why-you-should-guinea",
+	},
+]
+
+  ```
+</details>
+</ul>
+</details>
+<br/>
+
+<details>
+  <summary>Publications endpoints</summary>
+<br/>
+  <ul>
+    <li>Create publication</li>
+<details>
+  <summary>
+  (POST "publications")
+  </summary>
+  <ul>
+    <li>
+      Creates new publication associated with a media and a post
+    </li>
+    <li>
+      If there are no records compatible with the mediaId and postId, will return the status code 404 Not Found.
+    </li>
+  </ul>
+    
+  ```javascript
+  // body
+{
+	"mediaId": 1,
+	"postId": 1,
+	"date": "2023-08-21T13:25:17.352Z"
+}
+  ```
+</details>
+<br/>
+<li>Get all publications</li>
+<details>
+  <summary>
+  (GET "publications")
+  </summary>
+  <ul>
+    <li>
+      Response with all publications registred
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+[
+	{
+		"id": 1,
+		"mediaId": 1,
+		"postId": 1,
+		"date": "2023-08-21T13:25:17.352Z"
+	},
+	{
+		"id": 1,
+		"mediaId": 2,
+		"postId": 1,
+		"date": "2023-08-21T13:25:17.352Z"
+	},
+]
+  ```
+</details>
+<br/>
+<li>Get specific publication</li>
+<details>
+  <summary>
+  (GET "publications/:id")
+  </summary>
+  <ul>
+    <li>
+      Response with one publication that has the specificated id.
+    </li>
+  </ul>
+  
+  ```javascript
+  // response
+ 
+[
+	{
+		"id": 1,
+		"mediaId": 1,
+		"postId": 1,
+		"date": "2023-08-21T13:25:17.352Z"
+	},
+]
+
+  ```
+</details>
+</ul>
+</details>
+<br/>
+
+## Technologies
+The following tools and frameworks were used in the construction of the project:
+<p>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white'/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white'/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white'/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white'/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white'/>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
+## How to use
+1. Clone this repository
+2. Install dependencies
 ```bash
-$ npm install
+$ npm i
 ```
 
-## Running the app
+3. Setup your environment variables (.env)
 
+4. Create your database with prisma
+```bash
+$ npx prisma migrate dev
+$ npx prisma generate
+```
+
+5. Run the app
 ```bash
 # development
 $ npm run start
@@ -45,29 +309,28 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
-
+## Running tests
+1. Setup your environment variables (.env.test)
+   
+2. Create your database with prisma
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm run test:prisma
 ```
 
-## Support
+3. Run tests
+```bash
+# run unit tests
+$ npm run test
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# run e2e tests
+$ npm run test:e2e
 
-## Stay in touch
+# run unit+e2e tests
+$ npm run test:all
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# run unit coverage tests
+$ npm run test:cov
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+# run unit+e2e coverage tests
+$ npm run test:all:cov
+```
